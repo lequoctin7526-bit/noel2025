@@ -1,0 +1,540 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #0a1929, #1a3a5f);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            overflow-x: hidden;
+            padding-bottom: 30px;
+        }
+        
+        .header {
+            text-align: center;
+            margin: 20px 0;
+            z-index: 10;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a8d0e6;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .tree-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 75vh;
+            position: relative;
+            margin-top: 20px;
+        }
+        
+        /* Cây Noel mới */
+        .tree-container {
+            position: relative;
+            width: 400px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        /* Thân cây */
+        .trunk {
+            position: absolute;
+            bottom: 0;
+            width: 40px;
+            height: 80px;
+            background: linear-gradient(to right, #8b4513, #a0522d, #8b4513);
+            border-radius: 5px;
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(139, 69, 19, 0.5);
+        }
+        
+        /* Các tầng cây */
+        .layer {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 120px solid #0a5c36;
+            filter: brightness(1.2);
+            box-shadow: inset 0 0 20px rgba(0, 100, 0, 0.5);
+        }
+        
+        .layer:nth-child(2) {
+            bottom: 80px;
+            border-left: 130px solid transparent;
+            border-right: 130px solid transparent;
+            border-bottom: 100px solid #0b6e3e;
+            z-index: 3;
+        }
+        
+        .layer:nth-child(3) {
+            bottom: 160px;
+            border-left: 110px solid transparent;
+            border-right: 110px solid transparent;
+            border-bottom: 90px solid #0d8046;
+            z-index: 4;
+        }
+        
+        .layer:nth-child(4) {
+            bottom: 230px;
+            border-left: 90px solid transparent;
+            border-right: 90px solid transparent;
+            border-bottom: 80px solid #0e924e;
+            z-index: 5;
+        }
+        
+        .layer:nth-child(5) {
+            bottom: 290px;
+            border-left: 70px solid transparent;
+            border-right: 70px solid transparent;
+            border-bottom: 70px solid #10a456;
+            z-index: 6;
+        }
+        
+        .layer:nth-child(6) {
+            bottom: 340px;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 60px solid #12b65e;
+            z-index: 7;
+        }
+        
+        /* Ngôi sao trên đỉnh */
+        .star {
+            position: absolute;
+            bottom: 395px;
+            width: 60px;
+            height: 60px;
+            background: gold;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            z-index: 10;
+            animation: starGlow 2s infinite alternate;
+            box-shadow: 0 0 30px gold;
+        }
+        
+        @keyframes starGlow {
+            0% { transform: scale(1); box-shadow: 0 0 20px gold; }
+            100% { transform: scale(1.1); box-shadow: 0 0 40px gold, 0 0 60px gold; }
+        }
+        
+        /* Đèn trang trí */
+        .light {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            z-index: 8;
+            animation: lightTwinkle 2s infinite alternate;
+        }
+        
+        @keyframes lightTwinkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        /* Quà dưới gốc cây */
+        .gifts {
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 1;
+        }
+        
+        .gift {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: giftFloat 4s infinite ease-in-out;
+        }
+        
+        .gift:nth-child(2) {
+            animation-delay: 1s;
+        }
+        
+        .gift:nth-child(3) {
+            animation-delay: 2s;
+        }
+        
+        @keyframes giftFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .gift-box {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border-radius: 5px;
+        }
+        
+        .gift-1 .gift-box {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.5);
+        }
+        
+        .gift-2 .gift-box {
+            background: linear-gradient(45deg, #4ecdc4, #6bcf7f);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.5);
+        }
+        
+        .gift-3 .gift-box {
+            background: linear-gradient(45deg, #ffd93d, #ff9f43);
+            box-shadow: 0 5px 15px rgba(255, 217, 61, 0.5);
+        }
+        
+        .gift-lid {
+            width: 110%;
+            height: 20px;
+            position: absolute;
+            top: -10px;
+            left: -5%;
+            border-radius: 5px;
+        }
+        
+        .gift-1 .gift-lid {
+            background: linear-gradient(45deg, #ff5252, #ff6b6b);
+        }
+        
+        .gift-2 .gift-lid {
+            background: linear-gradient(45deg, #3db8b0, #4ecdc4);
+        }
+        
+        .gift-3 .gift-lid {
+            background: linear-gradient(45deg, #ffc800, #ffd93d);
+        }
+        
+        /* Hiệu ứng bóng đèn */
+        .light-beam {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            filter: blur(20px);
+            z-index: 0;
+            animation: beamRotate 20s infinite linear;
+        }
+        
+        @keyframes beamRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Nền ánh sáng */
+        .bg-lights {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+        
+        .bg-light {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%);
+            filter: blur(40px);
+            animation: floatAround 15s infinite linear;
+        }
+        
+        .bg-light:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-duration: 20s;
+            background: radial-gradient(circle, rgba(255,107,107,0.05) 0%, rgba(255,107,107,0) 70%);
+        }
+        
+        .bg-light:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-duration: 25s;
+            background: radial-gradient(circle, rgba(78,205,196,0.05) 0%, rgba(78,205,196,0) 70%);
+        }
+        
+        .bg-light:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-duration: 30s;
+            background: radial-gradient(circle, rgba(255,217,61,0.05) 0%, rgba(255,217,61,0) 70%);
+        }
+        
+        @keyframes floatAround {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, 30px) rotate(90deg); }
+            50% { transform: translate(0, 60px) rotate(180deg); }
+            75% { transform: translate(-50px, 30px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        /* Điều khiển - ĐẶT Ở DƯỚI CÂY */
+        .controls-container {
+            margin-top: 40px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+        }
+        
+        .controls-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #a8d0e6;
+            text-align: center;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-width: 180px;
+        }
+        
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn.active {
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #a8d0e6;
+            font-size: 0.9rem;
+            z-index: 10;
+            padding: 20px;
+            width: 100%;
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .tree-container {
+                width: 350px;
+                height: 450px;
+            }
+            
+            .layer {
+                border-left: 130px solid transparent;
+                border-right: 130px solid transparent;
+                border-bottom: 100px solid #0a5c36;
+            }
+            
+            .layer:nth-child(2) {
+                border-left: 110px solid transparent;
+                border-right: 110px solid transparent;
+                border-bottom: 80px solid #0b6e3e;
+            }
+            
+            .layer:nth-child(3) {
+                border-left: 90px solid transparent;
+                border-right: 90px solid transparent;
+                border-bottom: 70px solid #0d8046;
+            }
+            
+            .layer:nth-child(4) {
+                border-left: 70px solid transparent;
+                border-right: 70px solid transparent;
+                border-bottom: 60px solid #0e924e;
+            }
+            
+            .layer:nth-child(5) {
+                border-left: 50px solid transparent;
+                border-right: 50px solid transparent;
+                border-bottom: 50px solid #10a456;
+            }
+            
+            .layer:nth-child(6) {
+                border-left: 30px solid transparent;
+                border-right: 30px solid transparent;
+                border-bottom: 40px solid #12b65e;
+            }
+            
+            .star {
+                bottom: 345px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tree-container {
+                width: 300px;
+                height: 400px;
+            }
+            
+            .layer {
+                border-left: 120px solid transparent;
+                border-right: 120px solid transparent;
+                border-bottom: 90px solid #0a5c36;
+            }
+            
+            .layer:nth-child(2) {
+                border-left: 100px solid transparent;
+                border-right: 100px solid transparent;
+                border-bottom: 70px solid #0b6e3e;
+            }
+            
+            .layer:nth-child(3) {
+                border-left: 80px solid transparent;
+                border-right: 80px solid transparent;
+                border-bottom: 60px solid #0d8046;
+            }
+            
+            .layer:nth-child(4) {
+                border-left: 60px solid transparent;
+                border-right: 60px solid transparent;
+                border-bottom: 50px solid #0e924e;
+            }
+            
+            .layer:nth-child(5) {
+                border-left: 40px solid transparent;
+                border-right: 40px solid transparent;
+                border-bottom: 40px solid #10a456;
+            }
+            
+            .layer:nth-child(6) {
+                border-left: 20px solid transparent;
+                border-right: 20px solid transparent;
+                border-bottom: 30px solid #12b65e;
+            }
+            
+            .star {
+                bottom: 305px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .tree-container {
+                width: 280px;
+                height: 380px;
+            }
+            
+            .layer {
+                border-left: 110px solid transparent;
+                border-right: 110px solid transparent;
+                border-bottom: 80px solid #0a5c36;
+            }
+            
+            .layer:nth-child(2) {
+                border-left: 90px solid transparent;
+                border-right: 90px solid transparent;
+                border-bottom: 65px solid #0b6e3e;
+            }
+            
+            .layer:nth-child(3) {
+                border-left: 70px solid transparent;
+                border-right: 70px solid transparent;
+                border-bottom: 55px solid #0d8046;
+            }
+            
+            .layer:nth-child(4) {
+                border-left: 50px solid transparent;
+                border-right: 50px solid transparent;
+                border-bottom: 45px solid #0e924e;
+            }
+            
+            .layer:nth-child(5) {
+                border-left: 30px solid transparent;
+                border-right: 30px solid transparent;
+                border-bottom: 35px solid #10a456;
+            }
+            
+            .layer:nth-child(6) {
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-bottom: 25px solid #12b65e;
+            }
+            
+            .star {
+                bottom: 285px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            .btn {
+                width: 220px;
+                padding: 10px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }

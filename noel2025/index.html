@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Cây Noel 2025</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Cây Noel 2025</h1>
+        <p class="subtitle">Để trang trí cây noel. Hãy sử dụng nút ở dưới cây Noel nhé!!!</p>
+
+
+        <div class="tree-section">
+            <div class="bg-lights">
+                <div class="bg-light"></div>
+                <div class="bg-light"></div>
+                <div class="bg-light"></div>
+            </div>
+
+            <div class="light-beam"></div>
+
+            <div class="tree-container">
+                <div class="trunk"></div>
+                <div class="layer"></div>
+                <div class="layer"></div>
+                <div class="layer"></div>
+                <div class="layer"></div>
+                <div class="layer"></div>
+                <div class="star"></div>
+
+                <div class="lights-container" id="lights-container">
+                </div>
+
+                <div class="gifts">
+                    <div class="gift gift-1">
+                        <div class="gift-box"></div>
+                        <div class="gift-lid"></div>
+                    </div>
+                    <div class="gift gift-2">
+                        <div class="gift-box"></div>
+                        <div class="gift-lid"></div>
+                    </div>
+                    <div class="gift gift-3">
+                        <div class="gift-box"></div>
+                        <div class="gift-lid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Nút buttton điều khiển hiệu ứng-->
+    <div class="controls-container">
+        <h2 class="controls-title">Điều Khiển Hiệu Ứng</h2>
+        <div class="controls">
+            <button class="btn" id="mode1">Chế độ Đơn Sắc</button>
+            <button class="btn" id="mode2">Chế độ Cầu Vồng</button>
+            <button class="btn" id="mode3">Chế độ Giáng Sinh</button>
+            <button class="btn" id="toggleLights">Bật/Tắt Đèn</button>
+            <button class="btn" id="addSnow">Thêm Tuyết Rơi</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Chúc mọi người một mùa Giáng Sinh an lành và một năm mới hạnh phúc!</p>
+        <p>✨ Cây Noel được tạo bởi quctinne ✨</p>
+    </div>
+
+    <script>
+        // Tạo đèn trang trí cho cây
+        const lightsContainer = document.getElementById('lights-container');
+        const colorsSets = {
+            monochrome: ['#ffffff', '#f0f0f0', '#e0e0e0', '#d0d0d0'],
+            rainbow: ['#ff6b6b', '#ffa726', '#ffee58', '#4caf50', '#42a5f5', '#5c6bc0', '#ab47bc'],
+            christmas: ['#ff6b6b', '#4caf50', '#ffffff', '#ffd93d']
+        };
+
+        let currentMode = 'christmas';
+        let lightsOn = true;
+        let snowflakes = [];
+
+        // Tạo đèn trên cây
+        function createLights(mode) {
+            // Xóa đèn cũ
+            lightsContainer.innerHTML = '';
+
+            // Lấy bảng màu theo chế độ
+            const colors = colorsSets[mode];
+
+            // Số lượng đèn
+            const lightCount = 50;
+
+            // Tạo đèn
+            for (let i = 0; i < lightCount; i++) {
+                const light = document.createElement('div');
+                light.className = 'light';
+
+                // Vị trí ngẫu nhiên trên cây
+                const position = getLightPosition();
+                light.style.left = `${position.x}%`;
+                light.style.bottom = `${position.y}%`;
+
+                // Màu sắc ngẫu nhiên từ bảng màu
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                light.style.backgroundColor = color;
+                light.style.boxShadow = `0 0 15px ${color}`;
+
+                // Thời gian animation ngẫu nhiên
+                const delay = Math.random() * 2;
+                light.style.animationDelay = `${delay}s`;
+
+                lightsContainer.appendChild(light);
+            }
+        }
+
+        // Tính vị trí đèn trên cây (hình tam giác)
+        function getLightPosition() {
+            // Tạo phân bố hình tam giác
+            let x, y;
+
+            // Phân bố theo chiều cao
+            const heightRatio = Math.random();
+
+            if (heightRatio < 0.15) {
+                // Đỉnh cây
+                x = 50 + (Math.random() * 20 - 10);
+                y = 65 + Math.random() * 10;
+            } else if (heightRatio < 0.4) {
+                // Phần trên cây
+                x = 50 + (Math.random() * 60 - 30);
+                y = 40 + Math.random() * 25;
+            } else if (heightRatio < 0.7) {
+                // Phần giữa cây
+                x = 50 + (Math.random() * 80 - 40);
+                y = 15 + Math.random() * 25;
+            } else {
+                // Phần dưới cây
+                x = 50 + (Math.random() * 100 - 50);
+                y = Math.random() * 15;
+            }
+
+            return { x, y };
+        }
+
+        // Tạo tuyết rơi
+        function createSnow() {
+            const snowContainer = document.createElement('div');
+            snowContainer.className = 'snow-container';
+            snowContainer.style.position = 'fixed';
+            snowContainer.style.top = '0';
+            snowContainer.style.left = '0';
+            snowContainer.style.width = '100%';
+            snowContainer.style.height = '100%';
+            snowContainer.style.pointerEvents = 'none';
+            snowContainer.style.zIndex = '5';
+            document.body.appendChild(snowContainer);
+
+            // Tạo bông tuyết
+            for (let i = 0; i < 100; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.style.position = 'absolute';
+                snowflake.style.width = `${Math.random() * 10 + 5}px`;
+                snowflake.style.height = snowflake.style.width;
+                snowflake.style.backgroundColor = 'white';
+                snowflake.style.borderRadius = '50%';
+                snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.top = `${Math.random() * 100}%`;
+                snowflake.style.filter = 'blur(1px)';
+
+                // Animation rơi
+                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * 5;
+                snowflake.style.animation = `snowFall ${duration}s linear ${delay}s infinite`;
+
+                snowContainer.appendChild(snowflake);
+                snowflakes.push(snowContainer);
+
+                // Thêm keyframes cho animation nếu chưa có
+                if (!document.getElementById('snowAnimation')) {
+                    const style = document.createElement('style');
+                    style.id = 'snowAnimation';
+                    style.textContent = `
+                        @keyframes snowFall {
+                            0% { transform: translateY(-100px) translateX(0); }
+                            100% { transform: translateY(100vh) translateX(${Math.random() * 100 - 50}px); }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+        }
+
+        // Xóa tuyết
+        function removeSnow() {
+            const snowContainers = document.querySelectorAll('.snow-container');
+            snowContainers.forEach(container => {
+                container.remove();
+            });
+            snowflakes = [];
+        }
+
+        // Bật/tắt đèn
+        function toggleLights() {
+            lightsOn = !lightsOn;
+            const lights = document.querySelectorAll('.light');
+
+            if (lightsOn) {
+                lights.forEach(light => {
+                    light.style.display = 'block';
+                });
+                document.getElementById('toggleLights').textContent = 'Tắt Đèn';
+            } else {
+                lights.forEach(light => {
+                    light.style.display = 'none';
+                });
+                document.getElementById('toggleLights').textContent = 'Bật Đèn';
+            }
+        }
+
+        // Xử lý sự kiện nút
+        document.getElementById('mode1').addEventListener('click', function () {
+            currentMode = 'monochrome';
+            createLights(currentMode);
+            updateActiveButton(this);
+        });
+
+        document.getElementById('mode2').addEventListener('click', function () {
+            currentMode = 'rainbow';
+            createLights(currentMode);
+            updateActiveButton(this);
+        });
+
+        document.getElementById('mode3').addEventListener('click', function () {
+            currentMode = 'christmas';
+            createLights(currentMode);
+            updateActiveButton(this);
+        });
+
+        document.getElementById('toggleLights').addEventListener('click', function () {
+            toggleLights();
+        });
+
+        document.getElementById('addSnow').addEventListener('click', function () {
+            if (snowflakes.length === 0) {
+                createSnow();
+                this.textContent = 'Xóa Tuyết';
+            } else {
+                removeSnow();
+                this.textContent = 'Thêm Tuyết Rơi';
+            }
+        });
+
+        // Cập nhật nút active
+        function updateActiveButton(activeButton) {
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            activeButton.classList.add('active');
+        }
+
+        // Khởi tạo
+        window.addEventListener('DOMContentLoaded', function () {
+            createLights(currentMode);
+            document.getElementById('mode3').classList.add('active');
+        });
+    </script>
+</body>
+
+</html>
